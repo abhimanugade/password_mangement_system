@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registration</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
+  </head>
+  <body>
+    
+    <div class="container">
+      <div class="row">
+          <h2 class="text-center"><%= title %></h1>
+          <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+              <div class="panel panel-info">
+                  <div class="panel-heading">
+                      <div class="panel-title">Signup</div>
+                  </div>  
+                  <div class="panel-body" >
+                  <h1 id="msg"></h1>
+                    <form action="/" id="FormSub" class="form-horizontal" method="post"  role="form">
+                        
+
+                          <div class="form-group">
+                              <label for="username" class="col-md-3 control-label">First Name</label>
+                              <div class="col-md-9">
+                                  <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" re>
+                              </div>
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="username" class="col-md-3 control-label">Last Name</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" re>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label for="username" class="col-md-3 control-label">Mobile Number</label>
+                          <div class="col-md-9">
+                              <input type="text" class="form-control" id="mobile_no" name="mobile_no" placeholder="Enter Mobile Number" re>
+                          </div>
+                      </div>
+                          <div class="form-group">
+                                <label for="password" class="col-md-3 control-label">Email</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter Your Email" required>
+                                </div>
+                            </div>
+                          <div class="form-group">
+                              <label for="password" class="col-md-3 control-label">Password</label>
+                              <div class="col-md-9">
+                                  <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                                <label for="confrom password" class="col-md-3 control-label"> Conform Password</label>
+                                <div class="col-md-9">
+                                    <input type="password" class="form-control" id="password2" name="cpassword" placeholder="Conform password" required>
+                                </div>
+                            </div>
+                              
+                         <div class="form-group">
+                              <!-- Button -->                                        
+                              <div class="col-md-offset-3 col-md-9">
+                              <input type="submit" name="signup" value="Signup" class="btn btn-primary">   
+                              </div>
+                          </div>
+                          <p>already have account? <a href="">Login Here</a></p>
+ 
+                      </form>
+                   </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</form>
+
+<script>
+    document.getElementById('FormSub').addEventListener('submit',Send);
+    function Send(e) {
+        e.preventDefault();
+        var fname= document.querySelector('#fname').value;
+        var lname= document.querySelector('#lname').value;
+        var mobile_no= document.querySelector('#mobile_no').value;
+        var email = document.querySelector('#email').value;
+        var pass = document.querySelector('#password').value;
+        var pass2 = document.querySelector('#password2').value;
+        if(pass === pass2){
+            fetch('/',{
+            method: 'post',
+            headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-type': 'application/json'
+    },
+    body: JSON.stringify({fname:fname,lname:lname,mobile_no:mobile_no,email: email, Password: pass, Password2 : pass2})
+        })
+        .then((res)=>res.json())
+        .then(data => {
+            console.log(data)
+        })
+        } else {
+            document.getElementById('msg').innerHTML = "Your Password not Match";
+        }
+    }
+</script>
+  </body>
+</html>
